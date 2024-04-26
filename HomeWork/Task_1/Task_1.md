@@ -63,7 +63,7 @@
  - завершить вторую транзакцию
  - сделать select * from persons во второй сессии
 
- ![alt text](Images\image-2.png)
+ ![alt text](HomeWork/Task_1/images/image-2.png)
 
  - видите ли вы новую запись и если да то почему?
 
