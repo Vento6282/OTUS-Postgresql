@@ -8,15 +8,9 @@
  - выключить auto commit
  - сделать в первой сессии новую таблицу и наполнить ее данными create table persons(id serial, first_name text, second_name text); insert into persons(first_name, second_name) values('ivan', 'ivanov'); insert into persons(first_name, second_name) values('petr', 'petrov'); commit;
  - посмотреть текущий уровень изоляции: show transaction isolation level
-
-![alt text](Images\image.png)
-
  - начать новую транзакцию в обоих сессиях с дефолтным (не меняя) уровнем изоляции
  - в первой сессии добавить новую запись insert into persons(first_name, second_name) values('sergey', 'sergeev');
  - сделать select from persons во второй сессии
-
-![alt text](Images\image-5.png)
-
  - видите ли вы новую запись и если да то почему?
 
  ### Комментарий:
@@ -24,9 +18,6 @@
 
  - завершить первую транзакцию - commit;
  - сделать select from persons во второй сессии
-
-![alt text](Images\image-8.png)
-
  - видите ли вы новую запись и если да то почему?
 
   ### Комментарий:
@@ -35,14 +26,8 @@
 
  - завершите транзакцию во второй сессии
  - начать новые но уже repeatable read транзации - set transaction isolation level repeatable read;
-
-![alt text](Images\image-1.png)
-
  - в первой сессии добавить новую запись insert into persons(first_name, second_name) values('sveta', 'svetova');
  - сделать select* from persons во второй сессии*
-
-![alt text](Images\image-3.png)
-
  - видите ли вы новую запись и если да то почему?
 
   ### Комментарий:
@@ -51,9 +36,6 @@
 
  - завершить первую транзакцию - commit;
  - сделать select from persons во второй сессии
-
-![alt text](Images\image-4.png)
-
  - видите ли вы новую запись и если да то почему?
 
   ### Комментарий:
@@ -62,9 +44,6 @@
 
  - завершить вторую транзакцию
  - сделать select * from persons во второй сессии
-
- ![alt text](HomeWork/Task_1/images/image-2.png)
-
  - видите ли вы новую запись и если да то почему?
 
   ### Комментарий:
