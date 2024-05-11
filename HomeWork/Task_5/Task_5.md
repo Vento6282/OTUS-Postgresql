@@ -24,17 +24,18 @@
  - Запустить pgbench -c8 -P 6 -T 60 -U postgres postgres
 
 Вывод команды:\
+***pgbench (15.7 (Ubuntu 15.7-1.pgdg22.04+1))***\
 ***starting vacuum...end.***\
-***progress: 6.0 s, 1005.7 tps, lat 7.892 ms stddev 4.913, 0 failed***\
-***progress: 12.0 s, 1004.3 tps, lat 7.932 ms stddev 5.070, 0 failed***\
-***progress: 18.0 s, 1026.0 tps, lat 7.769 ms stddev 5.170, 0 failed***\
-***progress: 24.0 s, 1030.2 tps, lat 7.747 ms stddev 5.604, 0 failed***\
-***progress: 30.0 s, 126.3 tps, lat 61.373 ms stddev 144.146, 0 failed***\
-***progress: 36.0 s, 21.8 tps, lat 368.332 ms stddev 235.422, 0 failed***\
-***progress: 42.0 s, 370.1 tps, lat 22.134 ms stddev 77.985, 0 failed***\
-***progress: 48.0 s, 997.1 tps, lat 7.999 ms stddev 5.212, 0 failed***\
-***progress: 54.0 s, 946.4 tps, lat 8.417 ms stddev 6.535, 0 failed***\
-***progress: 60.0 s, 995.5 tps, lat 8.009 ms stddev 5.253, 0 failed***\
+***progress: 6.0 s, 749.3 tps, lat 10.404 ms stddev 2.786, 0 failed***\
+***progress: 12.0 s, 755.2 tps, lat 10.403 ms stddev 2.659, 0 failed***\
+***progress: 18.0 s, 752.5 tps, lat 10.443 ms stddev 2.670, 0 failed***\
+***progress: 24.0 s, 752.5 tps, lat 10.440 ms stddev 2.720, 0 failed***\
+***progress: 30.0 s, 747.6 tps, lat 10.503 ms stddev 2.604, 0 failed***\
+***progress: 36.0 s, 755.0 tps, lat 10.409 ms stddev 2.692, 0 failed***\
+***progress: 42.0 s, 755.1 tps, lat 10.406 ms stddev 2.607, 0 failed***\
+***progress: 48.0 s, 755.7 tps, lat 10.399 ms stddev 2.618, 0 failed***\
+***progress: 54.0 s, 754.3 tps, lat 10.417 ms stddev 2.736, 0 failed***\
+***progress: 60.0 s, 739.8 tps, lat 10.618 ms stddev 3.314, 0 failed***\
 ***transaction type: <builtin: TPC-B (sort of)>***\
 ***scaling factor: 1***\
 ***query mode: simple***\
@@ -42,28 +43,29 @@
 ***number of threads: 1***\
 ***maximum number of tries: 1***\
 ***duration: 60 s***\
-***number of transactions actually processed: 45148***\
+***number of transactions actually processed: 45110***\
 ***number of failed transactions: 0 (0.000%)***\
-***latency average = 10.602 ms***\
-***latency stddev = 35.547 ms***\
-***initial connection time = 18.620 ms***\
-***tps = 752.425258 (without initial connection time)***
+***latency average = 10.447 ms***\
+***latency stddev = 2.767 ms***\
+***initial connection time = 39.896 ms***\
+***tps = 751.667941 (without initial connection time)***
 
  - Применить параметры настройки PostgreSQL из прикрепленного к материалам занятия файла
  - Протестировать заново
 
 Вывод команды:\
-***starting vacuum...end.***
-***progress: 6.0 s, 970.1 tps, lat 8.184 ms stddev 5.734, 0 failed***\
-***progress: 12.0 s, 987.5 tps, lat 8.060 ms stddev 5.482, 0 failed***\
-***progress: 18.0 s, 1001.1 tps, lat 7.961 ms stddev 5.892, 0 failed***\
-***progress: 24.0 s, 1061.2 tps, lat 7.512 ms stddev 5.649, 0 failed***\
-***progress: 30.0 s, 1007.2 tps, lat 7.914 ms stddev 5.933, 0 failed***\
-***progress: 36.0 s, 1024.8 tps, lat 7.775 ms stddev 5.690, 0 failed***\
-***progress: 42.0 s, 1010.2 tps, lat 7.894 ms stddev 5.818, 0 failed***\
-***progress: 48.0 s, 1027.3 tps, lat 7.746 ms stddev 6.176, 0 failed***\
-***progress: 54.0 s, 925.8 tps, lat 8.626 ms stddev 7.618, 0 failed***\
-***progress: 60.0 s, 1018.8 tps, lat 7.828 ms stddev 6.128, 0 failed***\
+***pgbench (15.7 (Ubuntu 15.7-1.pgdg22.04+1))***\
+***starting vacuum...end.***\
+***progress: 6.0 s, 717.1 tps, lat 10.873 ms stddev 2.673, 0 failed***\
+***progress: 12.0 s, 747.9 tps, lat 10.505 ms stddev 2.539, 0 failed***\
+***progress: 18.0 s, 750.4 tps, lat 10.467 ms stddev 2.509, 0 failed***\
+***progress: 24.0 s, 748.6 tps, lat 10.495 ms stddev 2.510, 0 failed***\
+***progress: 30.0 s, 751.1 tps, lat 10.465 ms stddev 2.490, 0 failed***\
+***progress: 36.0 s, 750.3 tps, lat 10.470 ms stddev 2.494, 0 failed***\
+***progress: 42.0 s, 749.5 tps, lat 10.481 ms stddev 2.589, 0 failed***\
+***progress: 48.0 s, 751.3 tps, lat 10.454 ms stddev 2.507, 0 failed***\
+***progress: 54.0 s, 714.6 tps, lat 10.988 ms stddev 3.628, 0 failed***\
+***progress: 60.0 s, 722.5 tps, lat 10.873 ms stddev 3.200, 0 failed***\
 ***transaction type: <builtin: TPC-B (sort of)>***\
 ***scaling factor: 1***\
 ***query mode: simple***\
@@ -71,25 +73,64 @@
 ***number of threads: 1***\
 ***maximum number of tries: 1***\
 ***duration: 60 s***\
-***number of transactions actually processed: 60213***\
+***number of transactions actually processed: 44428***\
 ***number of failed transactions: 0 (0.000%)***\
-***latency average = 7.941 ms***\
-***latency stddev = 6.031 ms***\
-***initial connection time = 19.528 ms***\
-***tps = 1003.577565 (without initial connection time)***
+***latency average = 10.607 ms***\
+***latency stddev = 2.762 ms***\
+***initial connection time = 41.043 ms***\
+***tps = 740.355120 (without initial connection time)***
 
  - Что изменилось и почему?
+
+Ответ: в моём случае заметных изменений нет, но судя по изменяемым настройкам предположу, что должно измениться среднее время задержки (*average latency*). Затрагиваемые настройки в общей массе уменьшают работу с диском за счёт увеличение объема памяти, что должно повысить скорость выполнения запросов.
+
  - Создать таблицу с текстовым полем и заполнить случайными или сгенерированными данным в размере 1млн строк
  - Посмотреть размер файла с таблицей
+
+Вывод команды:\
+***pg_size_pretty***\
+***----------------***\
+***35 MB***
+
  - 5 раз обновить все строчки и добавить к каждой строчке любой символ
  - Посмотреть количество мертвых строчек в таблице и когда последний раз приходил автовакуум
+
+Вывод команды:\
+***relname | n_live_tup | n_dead_tup | ratio% |        last_autovacuum***\
+***---------+------------+------------+--------+-------------------------------***\
+***t1      |    1000000 |    4999852 |    499 | 2024-05-11 13:57:44.840609+03***
+
  - Подождать некоторое время, проверяя, пришел ли автовакуум
+
+Вывод команды:\
+ ***relname | n_live_tup | n_dead_tup | ratio% |        last_autovacuum***\
+***---------+------------+------------+--------+-------------------------------***\
+ ***t1      |    1000000 |          0 |      0 | 2024-05-11 14:00:45.814508+03***
+
  - 5 раз обновить все строчки и добавить к каждой строчке любой символ
  - Посмотреть размер файла с таблицей
+
+***pg_size_pretty***\
+***----------------***\
+***261 MB***
+
  - Отключить Автовакуум на конкретной таблице
+
+Запрос:\
+***alter table t1 set (autovacuum_enabled = false);***
+
  - 10 раз обновить все строчки и добавить к каждой строчке любой символ
  - Посмотреть размер файла с таблицей
+
+Вывод команды:\
+***pg_size_pretty***\
+***----------------***\
+***570 MB***
+
  - Объясните полученный результат
+
+Ответ: autovacuum удаляет мертвые строки, но не уменьшает размер таблицы. Зарезервированное место таблицей будет повторно использоваться таблицей. Поэтому когда обновили таблицу 5 раз, то занимаемое место таблицей было 261МВ, и когда затем обновили таблицу ещё 10 раз, то стала 570МВ, а не 261МВ + 570МВ.
+
  - Не забудьте включить автовакуум)
 
 Задание со *:
