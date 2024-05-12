@@ -136,4 +136,28 @@
 Задание со *:
 
  - Написать анонимную процедуру, в которой в цикле 10 раз обновятся все строчки в искомой таблице.
+
+Текст запроса:
+```
+DO
+$do$
+BEGIN
+   FOR i IN 1..10 LOOP
+      update t1
+      set c1 = concat(c1, 'f');
+      raise notice 'STEP: %', i;
+   END LOOP;
+END
+$do$;
+```
  - Не забыть вывести номер шага цикла.
+
+Вывод команды:
+```
+NOTICE:  STEP: 1
+NOTICE:  STEP: 2
+NOTICE:  STEP: 3
+NOTICE:  STEP: 4
+NOTICE:  STEP: 5
+DO
+```
