@@ -51,5 +51,5 @@ create schema humans;
 
 Команда линукс:
 ```
-pg_restore -d otus_copy -t students /tmp/backups/backup_students_dump.gz
+pg_restore -d otus_copy -t students_copy /tmp/backups/backup_students_dump.gz
 ```
