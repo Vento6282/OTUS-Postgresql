@@ -12,19 +12,17 @@
  - Задание со *: аналогично протестировать через утилиту https://github.com/Percona-Lab/sysbench-tpcc (требует установки
 https://github.com/akopytov/sysbench)
 
+### Комменатрий:
 
-
-https://pgconfigurator.cybertec.at/
+Для опеределения параметров, которые стоит изменить, воспользовался сайтом https://pgconfigurator.cybertec.at/. Часть параметров из рекомендаций не применял, так как прироста в TPS не было.
 
 Параметры ВМ: 2 CPU, 4 RAM, SSD.
 
-Для тестирования использовал команду с параметрами - ***pgbench -c 10 -T 300 -U postgres postgres***
+Для тестирования использовал команду с параметрами - ***pgbench -c 10 -T 300 -U postgres postgres***\
+При значениях по умолчанию - tps = 997.551954\
+После внесения изменений - tps = 2844.606357
 
 Изменяемые параметры:
-
-При значениях по умолчанию - tps = 997.551954
-
-После внесения изменений - tps = 2821.606357
 
 ***shared_buffers = 1Gb***\
 Параметр **shared_buffers** определяет , сколько памяти выделено серверу для кэширования данных. Рекомендуемое значение в пределах от 15% до 25% от общего объема оперативной памяти компьютера.
@@ -45,38 +43,8 @@ https://pgconfigurator.cybertec.at/
 ***random_page_cost = 1.25***\
 Данный параметр влияет на план запроса. Значение random_page_cost по умолчанию - 4.0. Уменьшение параметра приведёт к тому, что при выполении запроса будет сканироваться не таблица, а подходящий индекс.
 
-# Checkpointing:
-checkpoint_timeout = '15 min'
-checkpoint_completion_target = 0.9
-max_wal_size = '1024 MB'
-min_wal_size = '512 MB'
-
-
-# WAL writing
-wal_compression = on
-wal_buffers = -1 # auto-tuned by Postgres till maximum of segment size (16MB by default)
-
-
-# Background writer
-bgwriter_delay = 200ms
-bgwriter_lru_maxpages = 100
-bgwriter_lru_multiplier = 2.0
-bgwriter_flush_after = 0
-
-# Parallel queries:
-max_worker_processes = 2
-max_parallel_workers_per_gather = 1
-max_parallel_maintenance_workers = 1
-max_parallel_workers = 2
-parallel_leader_participation = on
-
-# Advanced features
-enable_partitionwise_join = on
-enable_partitionwise_aggregate = on
-jit = on
-max_slot_wal_keep_size = '1000 MB'
-track_wal_io_timing = on
-maintenance_io_concurrency = 100
-wal_recycle = on
+***checkpoint_timeout = '15 min'***\
+Контрольные точки довольно дороги, во-первых, потому что они требуют записи всех грязных в данный момент буферов, а во-вторых, потому что они приводят к дополнительному последующему трафику WAL. Поэтому разумно установить достаточно высокие параметры контрольных точек, чтобы контрольные точки не возникали слишком часто.
 
 ***synchronous_commit = off***\
+По умолчанию PostgreSQL обеспечивает согласованность. Это контролируется параметром сервера synchronous_commit. Параметр указывает, будет ли фиксация транзакции ожидать записи записей WAL на диск, прежде чем команда вернет клиенту сообщение об успехе. 
