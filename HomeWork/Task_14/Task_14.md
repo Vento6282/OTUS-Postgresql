@@ -19,12 +19,12 @@ CREATE OR REPLACE PROCEDURE fill_table_good_sum_mart()
 LANGUAGE plpgsql
 AS $$
 BEGIN
-	TRUNCATE TABLE good_sum_mart;
-	INSERT INTO good_sum_mart 
+   TRUNCATE TABLE good_sum_mart;
+   INSERT INTO good_sum_mart 
    SELECT G.good_name AS good_name, sum(G.good_price * S.sales_qty) AS sum_sale
-	FROM goods G
-	INNER JOIN sales S ON S.good_id = G.goods_id
-	GROUP BY G.good_name;
+   FROM goods G
+      INNER JOIN sales S ON S.good_id = G.goods_id
+   GROUP BY G.good_name;
 END;
 $$;
 ```
