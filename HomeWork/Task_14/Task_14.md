@@ -35,10 +35,10 @@ CREATE OR REPLACE FUNCTION update_insert_delete_table_sales()
 RETURNS TRIGGER AS 
 $$
 	DECLARE
-    	good_sum_mart_row good_sum_mart%ROWTYPE;
-	BEGIN
-		CASE TG_OP
-			WHEN 'INSERT'
+      good_sum_mart_row good_sum_mart%ROWTYPE;
+   BEGIN
+      CASE TG_OP
+         WHEN 'INSERT'
             THEN 
                IF (SELECT 1 
 						FROM goods g 
