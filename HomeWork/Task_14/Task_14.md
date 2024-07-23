@@ -74,7 +74,7 @@ $$
                   UPDATE good_sum_mart gsm
                   SET sum_sale = sum_sale - good_sum_mart_row.sum_sale
                   WHERE gsm.good_name = good_sum_mart_row.good_name;
-               THEN
+               ELSE
                   DELETE 
                   FROM good_sum_mart
                   WHERE good_name = (
