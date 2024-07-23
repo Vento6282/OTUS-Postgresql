@@ -34,110 +34,110 @@ $$;
 CREATE OR REPLACE FUNCTION update_insert_delete_table_sales() 
 RETURNS TRIGGER AS 
 $$
-	DECLARE
+   DECLARE
       good_sum_mart_row good_sum_mart%ROWTYPE;
    BEGIN
       CASE TG_OP
          WHEN 'INSERT'
             THEN 
                IF (SELECT 1 
-						FROM goods g 
-						   INNER JOIN good_sum_mart gsm ON g.good_name = gsm.good_name 
-						WHERE g.goods_id = new.good_id) 
+                  FROM goods g 
+                     INNER JOIN good_sum_mart gsm ON g.good_name = gsm.good_name 
+                  WHERE g.goods_id = new.good_id) 
                THEN 
-						SELECT good_name, new.sales_qty * good_price
-						INTO good_sum_mart_row
-						FROM goods g
-						WHERE g.goods_id = new.good_id;
-						UPDATE good_sum_mart gsm
-						SET sum_sale = sum_sale + good_sum_mart_row.sum_sale
-						WHERE gsm.good_name = good_sum_mart_row.good_name;
-					ELSE 
-						SELECT good_name, new.sales_qty * good_price
-						INTO good_sum_mart_row
-						FROM goods g
-					   WHERE g.goods_id = new.good_id;
-					   INSERT INTO good_sum_mart (good_name, sum_sale)
-						   VALUES (good_sum_mart_row.good_name, good_sum_mart_row.sum_sale);
-					END IF;
-			WHEN 'DELETE'
-				THEN 
-					IF (SELECT 1 AS "1"
-							FROM sales s
-							WHERE sales_id != old.sales_id and good_id = old.good_id
-							GROUP BY "1") 
-					THEN 
-						SELECT good_name, old.sales_qty * good_price
-						INTO good_sum_mart_row
-						FROM goods g
-						WHERE g.goods_id = old.good_id;
-						UPDATE good_sum_mart gsm
-						SET sum_sale = sum_sale - good_sum_mart_row.sum_sale
-						WHERE gsm.good_name = good_sum_mart_row.good_name;
-					THEN
-						DELETE 
-						FROM good_sum_mart
-						WHERE good_name = (
-							SELECT good_name
-							FROM goods
-							WHERE goods_id = old.good_id);
-					END IF;								
-			WHEN 'UPDATE'
-				THEN 
-					IF new.good_id != old.good_id
-					THEN
-						IF (SELECT 1 
-							FROM goods g 
-								INNER JOIN good_sum_mart gsm ON g.good_name = gsm.good_name 
-							   WHERE g.goods_id = new.good_id) 
-                	THEN 
-							SELECT good_name, new.sales_qty * good_price
-							INTO good_sum_mart_row
-							FROM goods g
-							WHERE g.goods_id = new.good_id;
-							UPDATE good_sum_mart gsm
-							SET sum_sale = sum_sale + good_sum_mart_row.sum_sale
-							WHERE gsm.good_name = good_sum_mart_row.good_name;
-						ELSE 
-							SELECT good_name, new.sales_qty * good_price
-							INTO good_sum_mart_row
-							FROM goods g
-							WHERE g.goods_id = new.good_id;
-							INSERT INTO good_sum_mart (good_name, sum_sale)
-							VALUES (good_sum_mart_row.good_name, good_sum_mart_row.sum_sale);
-						END IF;
-					  	IF (SELECT 1 AS "1"
-							FROM sales s
-							WHERE sales_id != old.sales_id and good_id = old.good_id
-							GROUP BY "1") 
-						THEN 
-							SELECT good_name, old.sales_qty * good_price
-							INTO good_sum_mart_row
-							FROM goods g
-							WHERE g.goods_id = old.good_id;
-							UPDATE good_sum_mart gsm
-							SET sum_sale = sum_sale - good_sum_mart_row.sum_sale
-							WHERE gsm.good_name = good_sum_mart_row.good_name;
-						ELSE
-							DELETE 
-							FROM good_sum_mart
-							WHERE good_name = (
-								SELECT good_name
-								FROM goods
-								WHERE goods_id = old.good_id);
-						END IF;	
-					ELSEIF (new.good_id = old.good_id and new.sales_qty != old.sales_qty)
-					THEN 
-						SELECT good_name, (new.sales_qty - old.sales_qty) * good_price
-						INTO good_sum_mart_row
-						FROM goods g
-						WHERE g.goods_id = new.good_id;
-						UPDATE good_sum_mart gsm
-						SET sum_sale = sum_sale + good_sum_mart_row.sum_sale
-						WHERE gsm.good_name = good_sum_mart_row.good_name;	
-					END IF;
-		END CASE;
-		RETURN NEW;
+                  SELECT good_name, new.sales_qty * good_price
+                  INTO good_sum_mart_row
+                  FROM goods g
+                  WHERE g.goods_id = new.good_id;
+                  UPDATE good_sum_mart gsm
+                  SET sum_sale = sum_sale + good_sum_mart_row.sum_sale
+                  WHERE gsm.good_name = good_sum_mart_row.good_name;
+               ELSE 
+                  SELECT good_name, new.sales_qty * good_price
+                  INTO good_sum_mart_row
+                  FROM goods g
+                  WHERE g.goods_id = new.good_id;
+                  INSERT INTO good_sum_mart (good_name, sum_sale)
+                     VALUES (good_sum_mart_row.good_name, good_sum_mart_row.sum_sale);
+               END IF;
+         WHEN 'DELETE'
+            THEN 
+               IF (SELECT 1 AS "1"
+                  FROM sales s
+                  WHERE sales_id != old.sales_id and good_id = old.good_id
+                  GROUP BY "1") 
+               THEN 
+                  SELECT good_name, old.sales_qty * good_price
+                  INTO good_sum_mart_row
+                  FROM goods g
+                  WHERE g.goods_id = old.good_id;
+                  UPDATE good_sum_mart gsm
+                  SET sum_sale = sum_sale - good_sum_mart_row.sum_sale
+                  WHERE gsm.good_name = good_sum_mart_row.good_name;
+               THEN
+                  DELETE 
+                  FROM good_sum_mart
+                  WHERE good_name = (
+                     SELECT good_name
+                     FROM goods
+                     WHERE goods_id = old.good_id);
+               END IF;								
+         WHEN 'UPDATE'
+            THEN 
+               IF new.good_id != old.good_id
+               THEN
+                  IF (SELECT 1 
+                     FROM goods g 
+                        INNER JOIN good_sum_mart gsm ON g.good_name = gsm.good_name 
+                     WHERE g.goods_id = new.good_id) 
+                  THEN 
+                     SELECT good_name, new.sales_qty * good_price
+                     INTO good_sum_mart_row
+                     FROM goods g
+                     WHERE g.goods_id = new.good_id;
+                     UPDATE good_sum_mart gsm
+                     SET sum_sale = sum_sale + good_sum_mart_row.sum_sale
+                     WHERE gsm.good_name = good_sum_mart_row.good_name;
+                  ELSE 
+                     SELECT good_name, new.sales_qty * good_price
+                     INTO good_sum_mart_row
+                     FROM goods g
+                     WHERE g.goods_id = new.good_id;
+                     INSERT INTO good_sum_mart (good_name, sum_sale)
+                        VALUES (good_sum_mart_row.good_name, good_sum_mart_row.sum_sale);
+                  END IF;
+                  IF (SELECT 1 AS "1"
+                     FROM sales s
+                     WHERE sales_id != old.sales_id and good_id = old.good_id
+                     GROUP BY "1") 
+                  THEN 
+                     SELECT good_name, old.sales_qty * good_price
+                     INTO good_sum_mart_row
+                     FROM goods g
+                     WHERE g.goods_id = old.good_id;
+                     UPDATE good_sum_mart gsm
+                     SET sum_sale = sum_sale - good_sum_mart_row.sum_sale
+                     WHERE gsm.good_name = good_sum_mart_row.good_name;
+                  ELSE
+                     DELETE 
+                     FROM good_sum_mart
+                     WHERE good_name = (
+                        SELECT good_name
+                        FROM goods
+                        WHERE goods_id = old.good_id);
+                  END IF;	
+               ELSEIF (new.good_id = old.good_id and new.sales_qty != old.sales_qty)
+               THEN 
+                  SELECT good_name, (new.sales_qty - old.sales_qty) * good_price
+                  INTO good_sum_mart_row
+                  FROM goods g
+                  WHERE g.goods_id = new.good_id;
+                  UPDATE good_sum_mart gsm
+                  SET sum_sale = sum_sale + good_sum_mart_row.sum_sale
+                  WHERE gsm.good_name = good_sum_mart_row.good_name;	
+               END IF;
+      END CASE;
+      RETURN NEW;
    END;
 $$ LANGUAGE plpgsql;
 ```
